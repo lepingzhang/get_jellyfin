@@ -30,12 +30,12 @@ class GetJellyfin(Plugin):
         commands = self.config.get("command", [])
         if any(re.search(r'\b' + re.escape(cmd) + r'\b', query) for cmd in commands):
             # 根据不同的命令调用不同的处理函数
-            if query in ["电影推荐", "最新电影", "最近有什么新电影"]:
+            if query in ["最新电影", "有什么新电影", "最近有什么新电影"]:
                 self.handle_movie_recommendation(event)
             elif query.startswith("搜索电影：") or query.startswith("查找电影："):
                 movie_name = query.split("：", 1)[1]
                 self.handle_movie_search(movie_name, event)
-            elif query in ["电视剧推荐", "最新电视剧", "最近有什么新电视剧"]:
+            elif query in ["最新电视剧", "有什么新剧", "最近有什么新剧"]:
                 self.handle_series_recommendation(event)
             elif query.startswith("搜索电视剧：") or query.startswith("查找电视剧："):
                 series_name = query.split("：", 1)[1]
