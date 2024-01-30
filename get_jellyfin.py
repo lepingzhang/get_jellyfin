@@ -46,14 +46,14 @@ class GetJellyfin(Plugin):
 
     def handle_movie_recommendation(self, event: Event):
         collection_names = ["合集1", "合集2", "合集3"]
-
-        # 初始化结果文本变量
         result_text = ""
+        successful_request = False  # 新增变量来跟踪是否成功请求
 
         for parent_id, name in zip(self.movie_parent_ids, collection_names):
             url = f"{self.base_url}/Users/{self.user_id}/Items?parentId={parent_id}&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie&fields=Name,CommunityRating&Limit=10&api_key={self.api_key}"
             response = requests.get(url)
             if response.status_code == 200:
+                successful_request = True  # 标记请求成功
                 try:
                     movies = response.json()
                     result_text += f"最新{name}影片:\n"
@@ -73,13 +73,12 @@ class GetJellyfin(Plugin):
         if not result_text:
             result_text = "无法获取最新电影信息，请稍后再试。"
 
-        if result_text.strip():  # 如果有搜索结果
+        if successful_request and result_text.strip():  # 如果请求成功并且有搜索结果
             result_text += f"观看地址(建议浏览器打开)：\n{self.web_url}"
 
         # 发送结果
         reply = Reply(ReplyType.TEXT, result_text.strip())
         event.channel.send(reply, event.message)
-
 
     def handle_movie_search(self, movie_name, event: Event):
         found = False
@@ -121,11 +120,13 @@ class GetJellyfin(Plugin):
     def handle_series_recommendation(self, event: Event):
         collection_names = ["电视剧"]
         result_text = ""
+        successful_request = False  # 新增变量来跟踪是否成功请求
         
         for parent_id, name in zip(self.series_parent_ids, collection_names):
-            url = f"{self.base_url}/Users/{self.user_id}/Items?parentId={parent_id}&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Series&fields=Name,CommunityRatin,PremiereDateg&Limit=5&api_key={self.api_key}"
+            url = f"{self.base_url}/Users/{self.user_id}/Items?parentId={parent_id}&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Series&fields=Name,CommunityRating,PremiereDate&Limit=5&api_key={self.api_key}"
             response = requests.get(url)
             if response.status_code == 200:
+                successful_request = True  # 标记请求成功
                 try:
                     series = response.json()
                     result_text += f"最新{name}剧集:\n"
@@ -140,7 +141,7 @@ class GetJellyfin(Plugin):
             else:
                 result_text += f"请求{name}数据失败，状态码：{response.status_code}\n\n"
 
-        if result_text.strip():  # 如果有搜索结果
+        if successful_request and result_text.strip():  # 如果请求成功并且有搜索结果
             result_text += f"观看地址(建议浏览器打开)：\n{self.web_url}"
 
         reply = Reply(ReplyType.TEXT, result_text.strip())
