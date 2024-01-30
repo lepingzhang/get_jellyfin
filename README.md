@@ -22,10 +22,10 @@
   {
     "name": "get_jellyfin",
     "command": ["电影推荐", "最新电影", "最近有什么新电影", "查找电影：", "搜索电影：", "电视剧推荐", "最新电视剧", "最近有什么新电视剧", "查找电视剧：", "搜索电视剧："],
-    "base_url": "your jellyfin web",
-    "web_url": "your jellyfin web",
-    "api_key": "your jellyfin api",
-    "user_id": "your jellyfin user id",
+    "base_url": "your_jellyfin_server",
+    "web_url": "your_jellyfin_web",
+    "api_key": "your_jellyfin_api",
+    "user_id": "your_jellyfin_user_id",
     "movie_parent_ids": ["parent_id1", "parent_id2", "parent_id3"],
     "series_parent_ids": ["parent_id1"]
   }
