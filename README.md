@@ -21,7 +21,7 @@
 "plugins": [
   {
     "name": "get_jellyfin",
-    "command": ["电影推荐", "最新电影", "最近有什么新电影", "查找电影：", "搜索电影：", "电视剧推荐", "最新电视剧", "最近有什么新电视剧", "查找电视剧：", "搜索电视剧："],
+    "command": ["最新电影", "有什么新电影", "最近有什么新电影", "搜索电影：", "查找电影：", "最新电视剧", "有什么新剧", "最近有什么新剧", "搜索电视剧：", "查找电视剧："],
     "base_url": "your_jellyfin_server",
     "web_url": "your_jellyfin_web",
     "api_key": "your_jellyfin_api",
