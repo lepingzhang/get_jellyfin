@@ -50,7 +50,8 @@ class GetJellyfin(Plugin):
         successful_request = False  # 新增变量来跟踪是否成功请求
 
         for parent_id, name in zip(self.movie_parent_ids, collection_names):
-            url = f"{self.base_url}/Users/{self.user_id}/Items?parentId={parent_id}&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie&fields=Name,CommunityRating&Limit=10&api_key={self.api_key}"
+            base_url = self.base_url.rstrip('/')
+            url = f"{base_url}/Users/{self.user_id}/Items?parentId={parent_id}&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie&fields=Name,CommunityRating&Limit=10&api_key={self.api_key}"
             response = requests.get(url)
             if response.status_code == 200:
                 successful_request = True  # 标记请求成功
@@ -86,7 +87,8 @@ class GetJellyfin(Plugin):
 
         for parent_id in self.movie_parent_ids:
             if not found:
-                url = f"{self.base_url}/Users/{self.user_id}/Items?parentId={parent_id}&SearchTerm={movie_name}&IncludeItemTypes=Movie&fields=Name,Overview,CommunityRating,PremiereDate&api_key={self.api_key}"
+                base_url = self.base_url.rstrip('/')
+                url = f"{base_url}/Users/{self.user_id}/Items?parentId={parent_id}&SearchTerm={movie_name}&IncludeItemTypes=Movie&fields=Name,Overview,CommunityRating,PremiereDate&api_key={self.api_key}"
                 response = requests.get(url)
                 if response.status_code == 200:
                     try:
@@ -123,7 +125,8 @@ class GetJellyfin(Plugin):
         successful_request = False  # 新增变量来跟踪是否成功请求
         
         for parent_id, name in zip(self.series_parent_ids, collection_names):
-            url = f"{self.base_url}/Users/{self.user_id}/Items?parentId={parent_id}&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Series&fields=Name,CommunityRating,PremiereDate&Limit=5&api_key={self.api_key}"
+            base_url = self.base_url.rstrip('/')
+            url = f"{base_url}/Users/{self.user_id}/Items?parentId={parent_id}&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Series&fields=Name,CommunityRating,PremiereDate&Limit=5&api_key={self.api_key}"
             response = requests.get(url)
             if response.status_code == 200:
                 successful_request = True  # 标记请求成功
@@ -153,7 +156,8 @@ class GetJellyfin(Plugin):
 
         for parent_id in self.series_parent_ids:
             if not found:
-                url = f"{self.base_url}/Users/{self.user_id}/Items?parentId={parent_id}&SearchTerm={series_name}&IncludeItemTypes=Series&fields=Name,Overview,CommunityRating&api_key={self.api_key}"
+                base_url = self.base_url.rstrip('/')
+                url = f"{base_url}/Users/{self.user_id}/Items?parentId={parent_id}&SearchTerm={series_name}&IncludeItemTypes=Series&fields=Name,Overview,CommunityRating&api_key={self.api_key}"
                 response = requests.get(url)
                 if response.status_code == 200:
                     try:
