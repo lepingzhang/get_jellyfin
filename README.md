@@ -33,4 +33,4 @@
 ```
 
 ### 3. 修改合集名称
-在代码的`collection_names`部分，修改你的合集名称，即对应的`parent_id`的名称。
+在代码的`collection_names`部分，修改为你的合集名称，即对应的`parent_id`的名称。
